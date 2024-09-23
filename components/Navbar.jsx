@@ -32,13 +32,9 @@ const Navbar = () => {
   const { wallet, connect, disconnect, connecting, connected } = useWallet();
   const { setVisible } = useWalletModal();
   const [isCustomDialogOpen, setIsCustomDialogOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState("home"); // For active tab highlight
+  const [activeTab, setActiveTab] = useState("home"); 
 
-  // const handleTabClick = (tab) => {
-  //   setActiveTab(tab); // Update the active tab state
-  // };
 
-  // Handles the custom dialog open/close state
   const handleCustomDialogClose = () => setIsCustomDialogOpen(false);
 
   // Function to handle wallet connection
@@ -70,7 +66,7 @@ const Navbar = () => {
               variant="ghost"
               onClick={() => setActiveTab(tab.id)}
               className={cn(
-                "flex items-center space-x-1 text-white px-4 py-2 hover:bg-white/5 hover:rounded-full hover:text-white text-md font-semibold h-12",
+                "flex items-center space-x-2 text-white px-4 py-2 hover:bg-white/5 hover:rounded-full hover:text-white text-md font-semibold h-12 w-36",
                 activeTab === tab.id && "text-white"
               )}
             >
