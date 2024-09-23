@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import Link from "next/link";
 
 import { cn } from "@/lib/utils";
@@ -118,7 +118,7 @@ const Navbar = () => {
       {/* Custom Dialog */}
       <Dialog open={isCustomDialogOpen} onOpenChange={setIsCustomDialogOpen}>
         <DialogTrigger asChild>
-          <Button variant="outline" className="mt-4 md:mt-0 md:ml-5 w-full md:w-auto md:h-12">
+          <Button variant="outline" className="mt-4 md:mt-0 md:ml-5 md:w-40 md:h-12 text-md">
             Connect
           </Button>
         </DialogTrigger>

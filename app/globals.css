@@ -87,7 +87,7 @@ body {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground px-12 py-8;
+    @apply bg-background text-foreground px-12 py-8 ;
   }
 }
 
@@ -98,6 +98,4 @@ body {
   border-radius: 12px; /* Rounded corners */
 }
 
-body.modal-open {
-  overflow: hidden;
-}
+

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
@@ -11,9 +11,18 @@ import SwapVerticalCircleIcon from '@mui/icons-material/SwapVerticalCircle';
 const SwapCard = () => {
   const [sellAmount, setSellAmount] = useState(0);
   const [buyAmount, setBuyAmount] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }, [isOpen]);
 
   return (
-    <div className=" text-white rounded-lg p-6 max-w-lg  mx-auto space-y-1 shadow-lg mt-16 bg-white/10 backdrop-blur-lg backdrop-filter bg-opacity-70">
+    <div className=" text-white rounded-lg p-6 max-w-lg h-[400px]  mx-auto space-y-1 shadow-lg mt-16 bg-white/10 backdrop-blur-lg backdrop-filter bg-opacity-70">
       {/* Sell Section */}
       <div className="flex justify-between items-center bg-black rounded-lg p-4 space-x-4 h-32">
         <div className="flex-1">
@@ -26,7 +35,7 @@ const SwapCard = () => {
             onChange={(e) => setSellAmount(parseFloat(e.target.value) || 0)}
           />
         </div>
-        <Select>
+        <Select onOpenChange={(open) => setIsOpen(open)}>
           <SelectTrigger className="bg-[#343434] text-white rounded-full px-3 py-1 flex items-center space-x-2 w-32">
            
             <SelectValue placeholder="ETH" />
@@ -69,7 +78,7 @@ const SwapCard = () => {
         </Select>
       </div>
 
-      <Button className="w-full bg-white text-black text-lg py-3 rounded-xl hover:bg-emerald-50 ">
+      <Button className="mt-28 w-full  bg-white text-black text-lg rounded-xl hover:bg-emerald-50 ">
         Swap
       </Button>
     </div>
