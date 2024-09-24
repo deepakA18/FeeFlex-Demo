@@ -1,12 +1,8 @@
 "use client";
 
-import React, { useState,useEffect } from "react";
-import Image from "next/image";
-
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
-
-import SwapVerticalCircleIcon from '@mui/icons-material/SwapVerticalCircle';
 
 const SwapCard = () => {
   const [sellAmount, setSellAmount] = useState(0);
@@ -15,16 +11,16 @@ const SwapCard = () => {
 
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     }
   }, [isOpen]);
 
   return (
-    <div className=" text-white rounded-lg p-6 max-w-lg h-[400px]  mx-auto space-y-1 shadow-lg mt-16 bg-white/10 backdrop-blur-lg backdrop-filter bg-opacity-70">
+    <div className="text-white rounded-lg p-6 max-w-lg h-[460px] mx-auto flex flex-col justify-around shadow-lg mt-16 bg-white/10 backdrop-blur-lg backdrop-filter bg-opacity-70">
       {/* Sell Section */}
-      <div className="flex justify-between items-center bg-black rounded-lg p-4 space-x-4 h-32">
+      <div className="flex justify-between items-center bg-black rounded-lg p-4 space-x-4 h-40">
         <div className="flex-1">
           <p className="text-gray-400 text-lg">Sell</p>
           <input
@@ -37,7 +33,6 @@ const SwapCard = () => {
         </div>
         <Select onOpenChange={(open) => setIsOpen(open)}>
           <SelectTrigger className="bg-[#343434] text-white rounded-full px-3 py-1 flex items-center space-x-2 w-32">
-           
             <SelectValue placeholder="ETH" />
           </SelectTrigger>
           <SelectContent>
@@ -49,13 +44,11 @@ const SwapCard = () => {
       </div>
 
       {/* Swap Arrow Button */}
-      
-
-
-  
+      {/* Add margin or spacing between sections */}
+    
 
       {/* Buy Section */}
-      <div className="flex justify-between items-center bg-black rounded-lg p-4 space-x-4 h-32">
+      <div className="flex justify-between items-center bg-black rounded-lg p-4 space-x-4 h-40">
         <div className="flex-1">
           <p className="text-gray-400 text-lg">Buy</p>
           <input
@@ -67,7 +60,7 @@ const SwapCard = () => {
           />
         </div>
         <Select>
-          <SelectTrigger className="bg-[#343434]  rounded-full px-3 py-1 flex items-center space-x-2 w-32">
+          <SelectTrigger className="bg-[#343434] rounded-full px-3 py-1 flex items-center space-x-2 w-32">
             <SelectValue placeholder="Select token" />
           </SelectTrigger>
           <SelectContent>
@@ -78,7 +71,8 @@ const SwapCard = () => {
         </Select>
       </div>
 
-      <Button className="mt-28 w-full  bg-white text-black text-lg rounded-xl hover:bg-emerald-50 ">
+      {/* Swap Button */}
+      <Button className="w-full mt-6 bg-white text-black text-lg rounded-xl hover:bg-emerald-50">
         Swap
       </Button>
     </div>
