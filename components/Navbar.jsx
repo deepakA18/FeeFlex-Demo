@@ -21,6 +21,9 @@ import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalance
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { useWallet } from "@solana/wallet-adapter-react";
 
+import { Cross1Icon } from "@radix-ui/react-icons";
+import {HamburgerMenuIcon} from "@radix-ui/react-icons"
+
 // Define tab links
 const tabs = [
   { name: "Home", icon: "🏠", id: "home", href: "/" },
@@ -29,10 +32,16 @@ const tabs = [
 ];
 
 const Navbar = () => {
-  const { wallet, connect, disconnect, connecting, connected } = useWallet();
+  const { wallet, connect, disconnect, connecting, connected} = useWallet();
   const { setVisible } = useWalletModal();
   const [isCustomDialogOpen, setIsCustomDialogOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("home"); 
+  const [isMenuOpen,setIsMenuOpen] = useState(false);
+
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  }
 
 
   const handleCustomDialogClose = () => setIsCustomDialogOpen(false);
@@ -52,10 +61,10 @@ const Navbar = () => {
   };
 
   return (
-    <header className="flex items-center justify-between p-4 shadow-lg w-full">
+    <header className="flex items-center justify-between p-4 shadow-lg w-full ">
   {/* Tab Navigation */}
   <div className="flex-1 flex justify-center ">
-    <div className="relative flex items-center justify-around rounded-full bg-white/10 backdrop-blur-lg backdrop-filter p-1 shadow-lg w-full max-w-md h-14">
+    <div className="relative flex items-center justify-around rounded-xl bg-white/10 backdrop-blur-lg backdrop-filter p-1 shadow-lg w-full max-w-md h-14">
       {tabs.map((tab) => (
         <div
           key={tab.id}
@@ -66,7 +75,7 @@ const Navbar = () => {
               variant="ghost"
               onClick={() => setActiveTab(tab.id)}
               className={cn(
-                "flex items-center space-x-2 text-white px-4 py-2 hover:bg-white/5 hover:rounded-full hover:text-white text-md font-semibold h-12 w-36",
+                "flex items-center space-x-2 text-white px-4 py-2 hover:bg-white/5 hover:rounded-xl hover:text-white text-md font-semibold h-12 w-36",
                 activeTab === tab.id && "text-white"
               )}
             >
@@ -78,8 +87,8 @@ const Navbar = () => {
           {activeTab === tab.id && (
             <motion.div
               layoutId="activeTab"
-              className="absolute inset-0 rounded-full bg-white/20"
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="absolute inset-0 rounded-xl bg-white/20"
+              transition={{ type: "spring", stiffness: 300, damping: 23 }}
             />
           )}
         </div>
@@ -88,10 +97,10 @@ const Navbar = () => {
   </div>
 
   {/* Custom Dialog */}
-  <div className="ml-4">
+  <div className="flex space-x-6">
     <Dialog open={isCustomDialogOpen} onOpenChange={setIsCustomDialogOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="text-md md:w-40 md:h-12">
+        <Button variant="outline" className="text-md md:w-36 md:h-12 m-0">
           Connect
         </Button>
       </DialogTrigger>
@@ -123,11 +132,16 @@ const Navbar = () => {
         </div>
 
         <DialogFooter className="flex justify-center">
-          <Button type="submit" variant="outline" className="h-10 w-28">Login</Button>
+          <Button type="submit" variant="outline" className="h-10 w-28" >Login</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
+
+    <button className="" onClick={toggleMenu}>
+    {isMenuOpen ? < Cross1Icon className="h-8 w-8"/> : <HamburgerMenuIcon className="h-8 w-8"/>}
+    </button>
   </div>
+  
 </header>
 
   );
