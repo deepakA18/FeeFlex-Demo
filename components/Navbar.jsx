@@ -27,7 +27,7 @@ import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { useWallet } from "@solana/wallet-adapter-react";
 
 
-// Define tab links
+
 const tabs = [
   { name: "Home", icon: "🏠", id: "home", href: "/" },
   { name: "Swap", icon: "↔", id: "swap", href: "/swap" },

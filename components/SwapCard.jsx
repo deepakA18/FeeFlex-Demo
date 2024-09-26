@@ -1,6 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+
+import { useWallet } from "@solana/wallet-adapter-react";
+import { useWalletModal } from "@solana/wallet-adapter-react-ui";
+
 import { Button } from "@/components/ui/button";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 
@@ -8,6 +12,21 @@ const SwapCard = () => {
   const [sellAmount, setSellAmount] = useState(0);
   const [buyAmount, setBuyAmount] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const {wallet,connected, connect} = useWallet();
+
+  const { setVisible } = useWalletModal();
+
+  const handleWalletButtonClick = () => {
+    setTimeout(() => {
+      if (connected) {
+       //Swap function call 
+      } else if (!wallet) {
+        setVisible(true);
+      } else {
+        connect();
+      }
+    }, 300);
+  };
 
   useEffect(() => {
     if (isOpen) {
@@ -72,8 +91,8 @@ const SwapCard = () => {
       </div>
 
       {/* Swap Button */}
-      <Button className="w-full mt-6 bg-white text-black text-lg rounded-xl hover:bg-emerald-50">
-        Swap
+      <Button className="w-full mt-6 bg-white text-black text-lg font-semibold rounded-xl hover:bg-gray-300 h-12" onClick={handleWalletButtonClick}>
+        {connected ? 'Swap': 'Connect Wallet'}
       </Button>
     </div>
   );
