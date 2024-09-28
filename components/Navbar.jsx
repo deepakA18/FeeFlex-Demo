@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState } from "react";
@@ -59,10 +60,11 @@ const Navbar = () => {
   };
 
   return (
-    <header className="flex items-center justify-between p-4 shadow-lg w-full">
+    <header className="flex items-center justify-between p-4 shadow-lg w-full ">
     {/* Tab Navigation */}
-    <div className="flex-1 flex justify-center">
-      <div className="relative flex items-center justify-around rounded-xl bg-white/10 backdrop-blur-lg backdrop-filter p-1 shadow-lg w-full max-w-md h-14">
+    
+    <div className="absolute left-1/2 transform -translate-x-1/2 flex justify-center ">
+      <div className="relative  flex items-center justify-around rounded-xl bg-white/10 backdrop-blur-lg backdrop-filter p-1 shadow-lg w-full max-w-md h-14">
         {tabs.map((tab) => (
           <div
             key={tab.id}
@@ -93,10 +95,10 @@ const Navbar = () => {
         ))}
       </div>
     </div>
-
+    <div className="flex ml-auto space-x-4 items-center">
     {theme === 'dark' ? (
         <ToggleSwitch ariaLabel='Toggle light mode' css='bg-gray-800' handleClick={toggleTheme}>
-          <MoonIcon className='text-gray-300 text-xl' />
+          <MoonIcon className='text-gray-300   text-xl' />
         </ToggleSwitch>
       ) : (
         <ToggleSwitch ariaLabel='Toggle dark mode' css='bg-gray-200' handleClick={toggleTheme}>
@@ -105,7 +107,6 @@ const Navbar = () => {
       )}
   
     {/* Custom Dialog - Align this to the right */}
-    <div className="flex justify-end space-x-4">
     
       <Dialog open={isCustomDialogOpen} onOpenChange={setIsCustomDialogOpen}>
         <DialogTrigger asChild>
@@ -151,4 +152,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Navbar
