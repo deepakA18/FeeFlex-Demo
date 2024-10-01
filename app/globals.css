@@ -1,15 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
+
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #171717;
+    --background: #081c15;
     --foreground: #ededed;
   }
 }
