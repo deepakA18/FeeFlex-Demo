@@ -1,16 +1,16 @@
 "use client";
 
-import { Bebas_Neue } from 'next/font/google';
+// import { Bebas_Neue } from 'next/font/google';
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import { Cross2Icon } from '@radix-ui/react-icons';
 
 
-const spaceGrotesk = Bebas_Neue({
-  subsets: ["latin"],
-  weight: ["400"],
-});
+// const spaceGrotesk = Bebas_Neue({
+//   subsets: ["latin"],
+//   weight: ["400"],
+// });
 
 const items = [
   { id: 1, title: "How it works", subtitle: "Subtitle 1", width: "w-2/5", height: "h-55" },
@@ -24,7 +24,7 @@ const Overview = () => {
   const [selectedId, setSelectedId] = useState(null);
 
   return (
-    <div><h1 className={`text-center text-black text-8xl font-extrabold mt-12 ${spaceGrotesk.className}`}>Dont <span className='text-white'>Worry</span>  about On Ramp,<br/> Pay With What <span className='text-white'>You</span>  Have</h1>
+    
     <div className="container mx-auto px-4 mt-16">
       
       {/* First row: 1st and 2nd divs side by side */}
@@ -33,7 +33,7 @@ const Overview = () => {
           <motion.div
             key={item.id}
             layoutId={item.id}
-            className={`p-6 bg-black hover:shadow-custom-red rounded-3xl text-white cursor-pointer w-1/2 ${item.height} ${item.width} `}
+            className={`p-6 bg-[#b7e4c7] hover:shadow-custom-red rounded-3xl text-[#081c15] cursor-pointer w-1/2 ${item.height} ${item.width} `}
             onClick={() => setSelectedId(item.id)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -50,7 +50,7 @@ const Overview = () => {
           <motion.div
             key={item.id}
             layoutId={item.id}
-            className={`p-6 bg-black hover:shadow-custom-red rounded-3xl text-white cursor-pointer w-1/2 ${item.height} ${item.width}`}
+            className={`p-6 bg-[#b7e4c7] hover:shadow-custom-red rounded-3xl text-[#081c15] cursor-pointer w-1/2 ${item.height} ${item.width}`}
             onClick={() => setSelectedId(item.id)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -89,7 +89,7 @@ const Overview = () => {
         )}
       </AnimatePresence>
     </div>
-    </div>
+    
   );
 };
 
