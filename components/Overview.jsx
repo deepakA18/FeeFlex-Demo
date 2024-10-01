@@ -33,13 +33,13 @@ const Overview = () => {
           <motion.div
             key={item.id}
             layoutId={item.id}
-            className={`p-6 bg-[#b7e4c7] hover:shadow-custom-red rounded-3xl text-[#081c15] cursor-pointer w-1/2 ${item.height} ${item.width} `}
+            className={`p-6 bg-[#1b4332] hover:shadow-custom-red rounded-3xl text-[#d8f3dc] cursor-pointer w-1/2 ${item.height} ${item.width} font-unbounded font-thin`}
             onClick={() => setSelectedId(item.id)}
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.95 }}
           >
-            <motion.h1>{item.title}</motion.h1>
-            <motion.h5>{item.subtitle}</motion.h5>
+            <motion.h1 className='font-unbounded text-2xl '>{item.title}</motion.h1>
+            <motion.h5 className='font-unbounded text-xl'>{item.subtitle}</motion.h5>
           </motion.div>
         ))}
       </div>
@@ -50,14 +50,14 @@ const Overview = () => {
           <motion.div
             key={item.id}
             layoutId={item.id}
-            className={`p-6 bg-[#b7e4c7] hover:shadow-custom-red rounded-3xl text-[#081c15] cursor-pointer w-1/2 ${item.height} ${item.width}`}
+            className={`p-6 bg-[#1b4332] hover:shadow-custom-red rounded-3xl text-[#d8f3dc] cursor-pointer w-1/2 ${item.height} ${item.width} font-unbounded font-thin`}
             onClick={() => setSelectedId(item.id)}
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.95 }}
             style={{ display: "flex", flexDirection: "column", justifyItems: item.id === 3 ? "self-end" : "" }} 
           >
-            <motion.h1>{item.title}</motion.h1>
-            <motion.h5>{item.subtitle}</motion.h5>
+            <motion.h1 className='font-unbounded text-2xl '>{item.title}</motion.h1>
+            <motion.h5 className='font-unbounded text-xl'>{item.subtitle}</motion.h5>
           </motion.div>
         ))}
       </div>
