@@ -21,7 +21,7 @@ const Footer = () => {
                   {/* <div className="w-10 h-10 rounded-full flex items-center justify-center">
                     <RocketIcon className='w-8 h-8'/>
                   </div> */}
-                  <p className='text-sm md:text-md md:w-full'>FeeFlex is a seamless swap, which helps you pay gas fees with available tokens in your wallet. <br/><strong> No more On ramp!</strong></p>
+                  <p className='text-sm md:text-md md:w-full text-[#d8f3dc]'>FeeFlex is a seamless swap, which helps you pay gas fees with available tokens in your wallet. <br/><strong className='text-[#40916c]'> No more On ramp!</strong></p>
                 </div>
               </CardHeader>
               <CardContent className="flex space-x-4 mt-2">
@@ -60,9 +60,9 @@ const Footer = () => {
             </div>
           </div>
     <div className="flex flex-row sm:space-x-10 space-y-0 sm:space-y-0">
-  <Card className="bg-white/10 text-white border-0 backdrop-blur-lg backdrop-filter bg-opacity-10">
+  <Card className=" text-[#d8f3dc] border-0 bg-transparent">
     <CardHeader>
-      <h3 className="font-semibold mb-2">Ecosystem</h3>
+      <h3 className="font-semibold mb-2 text-[#40916c]">Ecosystem</h3>
     </CardHeader>
     <CardContent>
       <ul className="space-y-2 text-sm">
@@ -73,9 +73,9 @@ const Footer = () => {
       </ul>
     </CardContent>
   </Card>
-  <Card className="bg-white/10 text-white border-0 backdrop-blur-lg backdrop-filter bg-opacity-10 ">
+  <Card className="bg-transparent text-[#d8f3dc] border-0 ">
     <CardHeader>
-      <h3 className="font-semibold mb-2">Resources</h3>
+      <h3 className="font-semibold mb-2 text-[#40916c]">Resources</h3>
     </CardHeader>
     <CardContent>
       <ul className="space-y-2 text-sm">
@@ -96,7 +96,6 @@ const Footer = () => {
         <div className="bg-transparent text-white border-0">
           <CardFooter className="flex flex-col items-center text-center">
             <p className="text-xs">© 2024 FeeFlex! | All rights reserved | <a href="#" className="underline">Terms of Service</a> | <a href="#" className="underline">Privacy Policy</a></p>
-            <p className="text-xs mt-4 font-thin">*Annual Percentage Yield (APY) data is provided from third party and publicly available information, is subject to change, may not be accurate or complete and may not reflect your actual earnings but rather the general network yields estimated to be applicable to all relevant network participants based on current conditions of the network, which may change. Presented rates are retrospective in nature and may not be indicative of future rates. APY data is provided for informational purposes only and should not be relied on.</p>
        
           </CardFooter>
         </div>

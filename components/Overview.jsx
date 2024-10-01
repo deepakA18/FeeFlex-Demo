@@ -1,16 +1,11 @@
 "use client";
 
-// import { Bebas_Neue } from 'next/font/google';
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import { Cross2Icon } from '@radix-ui/react-icons';
 
 
-// const spaceGrotesk = Bebas_Neue({
-//   subsets: ["latin"],
-//   weight: ["400"],
-// });
 
 const items = [
   { id: 1, title: "How it works", subtitle: "Subtitle 1", width: "w-2/5", height: "h-55" },
@@ -33,7 +28,7 @@ const Overview = () => {
           <motion.div
             key={item.id}
             layoutId={item.id}
-            className={`p-6 bg-[#1b4332] hover:shadow-custom-red rounded-3xl text-[#d8f3dc] cursor-pointer w-1/2 ${item.height} ${item.width} font-unbounded font-thin`}
+            className={`p-6 bg-[#d8f3dc] hover:shadow-custom-red rounded-3xl text-[#1b4332] cursor-pointer w-1/2 ${item.height} ${item.width} font-unbounded font-normal`}
             onClick={() => setSelectedId(item.id)}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.95 }}
@@ -50,7 +45,7 @@ const Overview = () => {
           <motion.div
             key={item.id}
             layoutId={item.id}
-            className={`p-6 bg-[#1b4332] hover:shadow-custom-red rounded-3xl text-[#d8f3dc] cursor-pointer w-1/2 ${item.height} ${item.width} font-unbounded font-thin`}
+            className={`p-6 bg-[#d8f3dc] hover:shadow-custom-red rounded-3xl text-[#1b4332] cursor-pointer w-1/2 ${item.height} ${item.width} font-unbounded font-normal`}
             onClick={() => setSelectedId(item.id)}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.95 }}
@@ -69,8 +64,8 @@ const Overview = () => {
             layoutId={selectedId}
             className="fixed top-0 left-0 w-full h-full bg-white/10 bg-opacity-10 backdrop-blur-lg backdrop-filter flex items-center justify-center z-50"
           >
-            <div className="bg-black p-6 rounded-lg text-center w-2/4 h-3/4 relative">
-              <motion.h1 className="text-white text-3xl font-semibold">
+            <div className="bg-[#081c15] p-6 rounded-lg text-center w-2/4 h-3/4 relative">
+              <motion.h1 className="text-[#d8f3dc] text-3xl font-thin">
                 {items.find((item) => item.id === selectedId)?.title}
               </motion.h1>
               <motion.h5>{items.find((item) => item.id === selectedId)?.subtitle}</motion.h5>
