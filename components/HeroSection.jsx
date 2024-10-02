@@ -18,10 +18,6 @@ const HeroSection = () => {
       <div className='flex justify-center'> 
       <AnimatedBeamDemo />
       </div>
-       
-
-        
-       
       
     </section>
   );
