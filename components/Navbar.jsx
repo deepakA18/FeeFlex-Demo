@@ -42,7 +42,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="flex items-center justify-between p-4 shadow-lg w-full ">
+    <header className="flex items-center justify-between p-4 shadow-lg w-full  ">
       {/* Tab Navigation */}
       <div className="absolute left-1/2 transform -translate-x-1/2 flex justify-center ">
         <div className="relative flex items-center justify-around rounded-xl bg-white/10 backdrop-blur-lg backdrop-filter p-1 shadow-lg w-[470px] h-[60px] border-2 border-[#d8f3dc] font-thin">
