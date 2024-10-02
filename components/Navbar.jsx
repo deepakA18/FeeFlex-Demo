@@ -42,7 +42,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="flex items-center justify-between p-4 shadow-lg w-full ">
+    <header className="flex items-center justify-between p-4 shadow-lg w-full  ">
       {/* Tab Navigation */}
       <div className="absolute left-1/2 transform -translate-x-1/2 flex justify-center ">
         <div className="relative flex items-center justify-around rounded-xl bg-white/10 backdrop-blur-lg backdrop-filter p-1 shadow-lg w-[470px] h-[60px] border-2 border-[#d8f3dc] font-thin">
@@ -53,12 +53,12 @@ const Navbar = () => {
                   variant="ghost"
                   onClick={() => setActiveTab(tab.id)}
                   className={cn(
-                    "flex items-center space-x-2 text-[#D8F3DC] px-4 py-2 hover:bg-[#D9D9D9]/10 hover:rounded-lg hover:text-[#D8F3DC] text-md font-light text-lg h-[48px] w-[150px]",
+                    "flex items-center space-x-2 text-[#D8F3DC] px-4 py-2 hover:bg-[#D9D9D9]/10 hover:rounded-lg hover:text-[#D8F3DC] text-md font-light  h-[48px] w-[150px]",
                     activeTab === tab.id && "text-[#D8F3DC]"
                   )}
                 >
                   {/* Using Next.js Image component for icons */}
-                  <Image src={tab.icon} alt={`${tab.name} icon`} width={20} height={20} />
+                  <Image src={tab.icon} alt={`${tab.name} icon`} width={18} height={18} />
                   <span>{tab.name}</span>
                 </Button>
               </Link>
@@ -76,14 +76,14 @@ const Navbar = () => {
       </div>
 
       {/* Theme Toggle and Connect Button */}
-      <div className="flex ml-auto space-x-4 items-center">
+      <div className="flex ml-auto  items-center">
         {theme === "dark" ? (
           <ToggleSwitch ariaLabel="Toggle light mode" css="hover:text-[#1B4332]" handleClick={toggleTheme}>
             <MoonIcon className="text-[#d8f3dc] text-xl group-hover:text-[#1B4332] h-[22px] w-[22px]" />
           </ToggleSwitch>
         ) : (
           <ToggleSwitch ariaLabel="Toggle dark mode" css="hover:text-[#1B4332]" handleClick={toggleTheme}>
-            <SunIcon className="text-[#d8f3dc] text-xl h-[22px] w-[22px] group-hover:text-[#1B4332]" />
+            <SunIcon className="text-[#d8f3dc] text-xl h-[18px] w-[18px] group-hover:text-[#1B4332]" />
           </ToggleSwitch>
         )}
 
@@ -91,7 +91,7 @@ const Navbar = () => {
         <Button
           variant="outline"
           onClick={handleWalletButtonClick}
-          className="p-4 text-lg text-[#1B4332] bg-[#d8f3dc] border-2 rounded-xl md:h-[60px] md:w-[150px] hover:bg-white/10 hover:border-2 hover:border-[#d8f3dc] hover:text-[#d8f3dc] font-normal"
+          className="p-4 text-md text-[#1B4332] bg-[#d8f3dc] border-2 rounded-xl md:h-[60px] md:w-[150px] hover:bg-white/10 hover:border-2 hover:border-[#d8f3dc] hover:text-[#d8f3dc] font-normal"
         >
           <AccountBalanceWalletOutlinedIcon className="text-lg mr-1" />
           {connected ? "Disconnect Wallet" : connecting ? "Connecting..." : "Connect"}
