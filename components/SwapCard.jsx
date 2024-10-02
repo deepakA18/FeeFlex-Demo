@@ -70,7 +70,7 @@ const SwapCard = () => {
   };
 
   return (
-    <div className="text-white rounded-[10px] p-6 max-w-2xl h-[550px] mx-auto flex flex-col justify-evenly shadow-lg mt-16 bg-[#40916c]/10 backdrop-filter backdrop-blur-xl  border border-[#d8f3dc]">
+    <div className="text-white rounded-[10px] p-6 max-w-2xl h-[550px] mx-auto flex flex-col justify-evenly shadow-lg mt-16 bg-[#40916c]/10 backdrop-filter backdrop-blur-xl  border border-[#d8f3dc] shadow-[#d8f3dc]">
       {/* Sell Section */}
       <div className="flex justify-between items-center bg-gradient-to-r from-[#55a27d] to-[#95d5a6] rounded-[15px] p-6 h-[168px] w-[618px] border border-gray-700 mx-auto">
         <div className="flex-1">
@@ -89,9 +89,11 @@ const SwapCard = () => {
       {/* Swap Button */}
       <button
         onClick={handleSwap}
-        className="rounded-full w-10 h-10 bg-[#081c15] flex items-center justify-center mx-auto my-4 focus:outline-none transform transition hover:scale-105"
+        className="rounded-full w-10 h-10 bg-[#081c15] border-[#d8f3dc] border flex items-center justify-center mx-auto my-4 focus:outline-none transform transition hover:scale-105 group"
       >
-        <span className="transform rotate-90">&#8645;</span> {/* Swap icon */}
+        <span className="transform rotate-90 group-hover:rotate-180 transition-transform duration-300">
+          &#8645; {/* Swap icon */}
+        </span>
       </button>
 
       {/* Buy Section */}
