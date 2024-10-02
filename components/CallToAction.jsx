@@ -1,21 +1,24 @@
-// SwapComponent.js
+"use client"
+import Image from "next/image";
 
 export default function SwapComponent() {
     return (
       <div className="relative flex justify-center items-center max-h-[370px] bg-[#D8F3DC] rounded-lg shadow-md overflow-hidden"> {/* Changed to overflow-hidden */}
         {/* Background SVG */}
         <div className="absolute -right-28 -top-30 z-0">
-          <img
+          <Image
             src="/solana-branded.svg"
             alt="Background SVG"
-            className="w-[650px] h-[650px] opacity-30 -rotate-12"
+            width={650}
+            height={650}
+            className=" opacity-30 -rotate-12"
           />
         </div>
   
         {/* Content */}
         <div className="relative z-10 p-12 flex flex-col justify-between gap-10">
           <h2 className="text-2xl font-normal text-[#1B4332]">
-            "Ready to Swap? Let FeeFlex Handle the Fees!"
+            &quotReady to Swap? Let FeeFlex Handle the Fees!&quot
           </h2>
           <p className="text-sm pl-2 text-[#1B4332] font-light">
             FeeFlex Labs makes cross-chain token swaps effortless by eliminating
