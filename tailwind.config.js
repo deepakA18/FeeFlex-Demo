@@ -71,7 +71,7 @@ module.exports = {
   		}
   	},
 	  boxShadow: {
-        'custom-red': '0px 0px 0px -3px rgb(254,255,254),7px 7px 0px -3px rgb(8, 28, 21),11px 11px 0px -3px rgb(64, 145, 108)'
+        'custom-red': '0px 0px 0px -3px rgb(254,255,254),7px 7px 0px -3px rgb(8, 28, 21),11px 11px 0px -3px rgb(216, 243, 220)'
       },
   },
   plugins: [require("tailwindcss-animate")],
