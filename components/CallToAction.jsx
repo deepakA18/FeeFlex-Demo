@@ -18,7 +18,7 @@ export default function SwapComponent() {
         {/* Content */}
         <div className="relative z-10 p-12 flex flex-col justify-between gap-10">
           <h2 className="text-2xl font-normal text-[#1B4332]">
-            &quotReady to Swap? Let FeeFlex Handle the Fees!&quot
+            {"Ready to Swap? Let FeeFlex Handle the Fees!"}
           </h2>
           <p className="text-sm pl-2 text-[#1B4332] font-light">
             FeeFlex Labs makes cross-chain token swaps effortless by eliminating
