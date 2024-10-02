@@ -31,22 +31,14 @@ const Footer = () => {
                   whileTap={{ scale: 0.8, rotate: -90, borderRadius: "100%" }}
                   href="#"
                 >
-                  <GitHubLogoIcon width={32} height={32} className='text-white hover:text-green-500'/>
+                  <GitHubLogoIcon width={35} height={35} className='text-white hover:text-green-500'/>
                 </motion.a>
                 <motion.a
                   whileHover={{ scale: 1.2, rotate: 90 }}
                   whileTap={{ scale: 0.8, rotate: -90, borderRadius: "100%" }}
                   href="#"
                 >
-                  <TwitterLogoIcon width={32} height={32} className='text-white hover:text-sky-400' />
-                </motion.a>
-
-                <motion.a
-                  whileHover={{ scale: 1.2, rotate: 90 }}
-                  whileTap={{ scale: 0.8, rotate: -90, borderRadius: "100%" }}
-                  href="#"
-                >
-                  <LinkedInLogoIcon width={32} height={32} className='text-white hover:text-sky-600'/>
+                  <TwitterLogoIcon width={35} height={35} className='text-white hover:text-sky-400' />
                 </motion.a>
 
                 <motion.a
@@ -54,7 +46,15 @@ const Footer = () => {
                   whileTap={{ scale: 0.8, rotate: -90, borderRadius: "100%" }}
                   href="#"
                 >
-                  <DiscordLogoIcon width={35} height={35} className='text-white hover:text-violet-500'/>
+                  <LinkedInLogoIcon width={35} height={35} className='text-white hover:text-sky-600'/>
+                </motion.a>
+
+                <motion.a
+                  whileHover={{ scale: 1.2, rotate: 90 }}
+                  whileTap={{ scale: 0.8, rotate: -90, borderRadius: "100%" }}
+                  href="#"
+                >
+                  <DiscordLogoIcon width={38} height={38} className='text-white hover:text-violet-500'/>
                 </motion.a>
               </CardContent>
             </div>
