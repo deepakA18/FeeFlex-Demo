@@ -18,9 +18,9 @@ export default function SwapComponent() {
         {/* Content */}
         <div className="relative z-10 p-12 flex flex-col justify-between gap-10">
           <h2 className="text-2xl font-normal text-[#1B4332]">
-            {"Ready to Swap? Let FeeFlex Handle the Fees!"}
+            &quot;Ready to Swap? Let FeeFlex Handle the Fees!&quot;
           </h2>
-          <p className="text-sm pl-2 text-[#1B4332] font-light">
+          <p className="text-base pl-2 text-[#1B4332] font-thin">
             FeeFlex Labs makes cross-chain token swaps effortless by eliminating
             the need for native tokens to cover gas fees. Join the future of
             seamless DeFi transactions today!
