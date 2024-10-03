@@ -2,7 +2,7 @@
 
 export default function SwapComponent() {
     return (
-      <div className="relative flex justify-center items-center max-h-[370px] bg-[#D8F3DC] rounded-lg shadow-md overflow-hidden"> {/* Changed to overflow-hidden */}
+      <div className="relative flex justify-center items-center max-h-[370px] bg-[#D8F3DC] w shadow-md overflow-hidden"> {/* Changed to overflow-hidden */}
         {/* Background SVG */}
         <div className="absolute -right-28 -top-30 z-0">
           <img
