@@ -25,6 +25,7 @@ export default function Component() {
             title="Seamless Liquidity Pool"
             description="Our unique liquidity pool ensures smooth liquidity and reliable token swaps."
             alignment="left"
+            reverse
           />
         </div>
 

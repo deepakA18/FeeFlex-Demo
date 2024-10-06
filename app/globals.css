@@ -91,6 +91,7 @@ body {
   body {
     @apply bg-background text-foreground px-12 py-8 ;
   }
+
 }
 
 
