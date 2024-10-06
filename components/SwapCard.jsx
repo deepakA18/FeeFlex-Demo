@@ -7,6 +7,7 @@ import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { Button } from "@/components/ui/button";
 import { fetchSolToUsdcPrice, fetchUsdcToSolPrice } from "@/utils/jup_service"; // Import both price functions
 
+
 const SwapCard = () => {
   const [sellAmount, setSellAmount] = useState(0);
   const [buyAmount, setBuyAmount] = useState(0);
@@ -93,6 +94,7 @@ const SwapCard = () => {
         </div>
         <div className="flex items-center space-x-2 py-1 px-3 border rounded-full border-[#1B4332]">
           <Image src={sellTokenIcon} alt={sellToken} width={20} height={20} /> {/* Solana Icon */}
+          
           <p className="text-l font-normal text-[#1B4332]">{sellToken}</p>
         </div>
       </div>
@@ -104,6 +106,7 @@ const SwapCard = () => {
       >
         <span className="transform -rotate-90 group-hover:rotate-90 transition-transform duration-300">
         <Image src="swap-curve.svg" alt="swap" width={18} height={18} /> {/* Solana Icon */}
+        
 
         </span>
       </button>

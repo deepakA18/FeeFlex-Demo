@@ -2,7 +2,6 @@
 "use client";
 import { TokenSOL } from '@web3icons/react'; // Import TokenSOL
 import Link from "next/link";
-import Image from "next/image";
 
 
 export default function SwapComponent() {

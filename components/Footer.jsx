@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { motion } from "framer-motion"
+import Image from 'next/image' // Importing the Next.js Image component
 
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
@@ -11,8 +12,19 @@ import { GitHubLogoIcon, TwitterLogoIcon, DiscordLogoIcon, LinkedInLogoIcon } fr
 
 const Footer = () => {
   return (
-    <footer className="py-10 mt-10">
-      <div className="container mx-auto px-4">
+    <footer className="relative py-10 mt-10">
+      {/* Blob SVG background */}
+      <div className="absolute inset-0 ml-4 mb-5 flex justify-center">
+        <Image 
+          src="/gradient-btm.svg" 
+          alt="Background Blob" 
+          width={650} 
+          height={200} 
+          className=" -z-10" 
+        />
+      </div>
+
+      <div className="container mx-auto px-4 relative z-20">
         <div className="flex flex-col md:flex-row justify-evenly space-y-10 md:space-y-0">
           <div className="w-full md:w-1/2 lg:w-1/3">
             <div className="bg-transparent text-white border-0">
@@ -25,8 +37,7 @@ const Footer = () => {
                 </div>
               </CardHeader>
               <CardContent className="flex space-x-4 mt-2">
-
-              <motion.a
+                <motion.a
                   whileHover={{ scale: 1.2, rotate: 90 }}
                   whileTap={{ scale: 0.8, rotate: -90, borderRadius: "100%" }}
                   href="#"
