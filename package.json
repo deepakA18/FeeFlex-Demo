@@ -12,6 +12,7 @@
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@heroicons/react": "^1.0.6",
+    "@jup-ag/api": "^6.0.29",
     "@mui/icons-material": "^6.1.0",
     "@mui/material": "^6.1.0",
     "@project-serum/anchor": "^0.26.0",
