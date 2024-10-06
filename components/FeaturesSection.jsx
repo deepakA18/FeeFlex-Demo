@@ -2,9 +2,8 @@ import Image from 'next/image';
 
 export default function Component() {
   return (
-    <div className=" text-[#D8F3DC] min-h-screen flex flex-col items-center justify-center p-4 mt-16 mb-10">
-      <h1 className="text-lg font-normal mb-6 text-shadow-glow">Why choose Us?</h1>
-
+    <div className=" text-[#D8F3DC] min-h-screen flex flex-col items-center justify-center p-4 mt-8 mb-10">
+      
       <div className="relative w-full max-w-6xl">
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="bg-transparent border border-[#D8F3DC] text-[#D8F3DC] px-8 py-2 rounded-[5px] text-xl z-10 font-regular">
@@ -52,6 +51,7 @@ export default function Component() {
 function FeatureItem({ icon, title, description, alignment }) {
   return (
     <div className={`flex items-center ${alignment === 'left' ? 'justify-start' : 'justify-end'}`}>
+      
       {alignment === 'left' && (
         <div className=" p-3 ">
           <Image src={icon} alt={title} width={150} height={260} />
