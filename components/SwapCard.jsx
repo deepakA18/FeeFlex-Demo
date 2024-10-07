@@ -8,32 +8,33 @@ import { Button } from "@/components/ui/button";
 import { fetchSolToUsdcPrice, fetchUsdcToSolPrice } from "@/utils/jup_service";
 import { VersionedTransaction, Connection } from "@solana/web3.js";
 
-const SOL_MINT = "So11111111111111111111111111111111111111112"; // SOL mint address
-const USDC_MINT = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"; // USDC mint address
+const SOL_MINT = "So11111111111111111111111111111111111111112";
+const USDC_MINT = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
 
 const SwapCard = () => {
   const [sellAmount, setSellAmount] = useState(0);
   const [buyAmount, setBuyAmount] = useState(0);
-  const [sellToken, setSellToken] = useState("SOL");
-  const [buyToken, setBuyToken] = useState("USDC");
-  const [sellTokenIcon, setSellTokenIcon] = useState("/solana.svg");
-  const [buyTokenIcon, setBuyTokenIcon] = useState("/usdt.svg");
+  const [sellToken, setSellToken] = useState("USDC");
+  const [buyToken, setBuyToken] = useState("SOL");
+  const [sellTokenIcon, setSellTokenIcon] = useState("/usdt.svg");
+  const [buyTokenIcon, setBuyTokenIcon] = useState("/solana.svg");
   const [isLoading, setIsLoading] = useState(false);
-  const [quoteResponse, setQuoteResponse] = useState(null); // Store quote response for swap
+  const [quoteResponse, setQuoteResponse] = useState(null);
+  const [error, setError] = useState(null);
 
-  const { wallet, connected, connect, signTransaction, sendTransaction} = useWallet();
+  const { wallet, connected, connect, signTransaction, sendTransaction, publicKey } = useWallet();
   const { setVisible } = useWalletModal();
-  const connection = new Connection('https://mainnet.helius-rpc.com/?api-key=YOUR_API_KEY_HERE'); // Replace with actual API key
-  
-  // Debounced function to fetch prices
+  const connection = new Connection('https://mainnet.helius-rpc.com/?api-key=YOUR_API_KEY_HERE');
+
   const fetchPrice = useCallback(
     debounce(async (fromToken, toToken, amount) => {
-      if (!fromToken || !toToken || amount === undefined) return;
-      if (amount === 0 || !amount) {
+      if (!fromToken || !toToken || amount === undefined || amount === 0) {
         setBuyAmount(0);
+        setQuoteResponse(null);
         return;
       }
       setIsLoading(true);
+      setError(null);
       try {
         let price = 0;
         if (fromToken === "SOL" && toToken === "USDC") {
@@ -43,16 +44,13 @@ const SwapCard = () => {
         }
         setBuyAmount(price * amount);
         
-        // Get the quote for the transaction from Jupiter API
-        const quote = await (
-          await fetch(
-            `https://quote-api.jup.ag/v6/quote?inputMint=${fromToken === "SOL" ? SOL_MINT : USDC_MINT}&outputMint=${toToken === "SOL" ? SOL_MINT : USDC_MINT}&amount=${amount * Math.pow(10, 9)}&slippage=0.5`
-          )
-        ).json();
+        const quote = await fetch(
+          `https://quote-api.jup.ag/v6/quote?inputMint=${fromToken === "SOL" ? SOL_MINT : USDC_MINT}&outputMint=${toToken === "SOL" ? SOL_MINT : USDC_MINT}&amount=${amount * Math.pow(10, 9)}&slippage=0.5`
+        ).then(res => res.json());
         setQuoteResponse(quote);
-        
       } catch (error) {
         console.error("Error fetching conversion:", error);
+        setError("Failed to fetch price. Please try again.");
       } finally {
         setIsLoading(false);
       }
@@ -60,14 +58,12 @@ const SwapCard = () => {
     []
   );
 
-  // Fetch prices on amount change
   useEffect(() => {
     if (sellToken && buyToken) {
       fetchPrice(sellToken, buyToken, sellAmount);
     }
   }, [sellAmount, sellToken, buyToken, fetchPrice]);
 
-  // Handle swapping assets
   const handleSwap = () => {
     const tempAmount = sellAmount;
     const tempToken = sellToken;
@@ -77,70 +73,95 @@ const SwapCard = () => {
     setBuyAmount(tempAmount);
     setSellToken(buyToken);
     setBuyToken(tempToken);
-
-    // Swap the icons
     setSellTokenIcon(buyTokenIcon);
     setBuyTokenIcon(tempIcon);
   };
 
-  // Handle wallet connect or swap button click
   const handleWalletButtonClick = async () => {
-    if (connected && quoteResponse) {
-      // If connected, proceed to sign and send transaction
-      await signAndSendTransaction();
-    } else if (!wallet) {
+    if (!wallet) {
       setVisible(true);
-    } else {
-      connect();
-    }
-  };
-
-  // Sign and send transaction function
-  async function signAndSendTransaction() {
-    if (!connected || !signTransaction || !sendTransaction) {
-      console.error("Wallet is not connected or does not support signing transactions");
       return;
     }
 
-    // Get serialized transaction for the swap
-    const { swapTransaction } = await (
-      await fetch('https://quote-api.jup.ag/v6/swap', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          quoteResponse,
-          userPublicKey: wallet.publicKey?.toString(),
-          wrapAndUnwrapSol: true, // SOL needs to be wrapped into wSOL
-        }),
-      })
-    ).json();
+    if (!connected) {
+      try {
+        await connect();
+      } catch (error) {
+        console.error("Failed to connect wallet:", error);
+        setError("Failed to connect wallet. Please try again.");
+        return;
+      }
+    }
+
+    if (connected && quoteResponse) {
+      await signAndSendTransaction();
+    }
+  };
+
+  async function signAndSendTransaction() {
+    if (!connected || !signTransaction || !sendTransaction || !publicKey) {
+      setError("Wallet is not connected or does not support signing transactions");
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
 
     try {
+      console.log("Preparing swap transaction request...");
+      const requestPayload = {
+        quoteResponse,
+        userPublicKey: publicKey.toString(),
+        wrapAndUnwrapSol: true,
+      };
+      console.log("Request payload:", requestPayload);
+
+      const response = await fetch('https://quote-api.jup.ag/v6/swap', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestPayload),
+      });
+
+      if (!response.ok) {
+        const errorBody = await response.text();
+        throw new Error(`HTTP error! status: ${response.status}, body: ${errorBody}`);
+      }
+
+      const { swapTransaction } = await response.json();
+
+      if (!swapTransaction) {
+        throw new Error("Swap transaction is undefined in the API response");
+      }
+
+      console.log("Deserializing transaction...");
       const swapTransactionBuf = Buffer.from(swapTransaction, 'base64');
       const transaction = VersionedTransaction.deserialize(swapTransactionBuf);
-      const signedTransaction = await wallet.signTransaction(transaction);
 
+      console.log("Signing transaction...");
+      const signedTransaction = await signTransaction(transaction);
+
+      console.log("Sending transaction...");
       const rawTransaction = signedTransaction.serialize();
       const txid = await connection.sendRawTransaction(rawTransaction, {
         skipPreflight: true,
         maxRetries: 2,
       });
 
+      console.log("Transaction sent. Confirming...");
       const latestBlockHash = await connection.getLatestBlockhash();
-      await connection.confirmTransaction(
-        {
-          blockhash: latestBlockHash.blockhash,
-          lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
-          signature: txid,
-        },
-        'confirmed'
-      );
+      await connection.confirmTransaction({
+        blockhash: latestBlockHash.blockhash,
+        lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
+        signature: txid,
+      }, 'confirmed');
 
-      console.log(`https://solscan.io/tx/${txid}`);
+      console.log(`Transaction confirmed: https://solscan.io/tx/${txid}`);
+      // You might want to update UI here to show success message
     } catch (error) {
-      console.error("Error signing or sending the transaction:", error);
+      console.error("Error in signAndSendTransaction:", error);
+      setError("Failed to complete the swap. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -192,12 +213,18 @@ const SwapCard = () => {
         </div>
       </div>
 
+      {/* Error Message */}
+      {error && (
+        <div className="text-red-500 mb-4">{error}</div>
+      )}
+
       {/* Wallet Connect/Swap Button */}
       <Button
         onClick={handleWalletButtonClick}
+        disabled={isLoading}
         className="rounded-full w-full h-[50px] md:h-[60px] bg-[#95d5a6] hover:bg-[#74c69d] text-xl font-semibold focus:outline-none text-[#081c15] transform transition"
       >
-        {connected ? "Swap" : "Connect Wallet"}
+        {isLoading ? "Processing..." : connected ? "Swap" : "Connect Wallet"}
       </Button>
     </div>
   );
