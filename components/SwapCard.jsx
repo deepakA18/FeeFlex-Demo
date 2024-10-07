@@ -24,8 +24,9 @@ const SwapCard = () => {
 
   const { wallet, connected, connect, signTransaction, sendTransaction, publicKey } = useWallet();
   const { setVisible } = useWalletModal();
-  const connection = new Connection('https://mainnet.helius-rpc.com/?api-key=YOUR_API_KEY_HERE');
+  const connection = new Connection(`https://mainnet.helius-rpc.com/?api-key=${process.env.NEXT_PUBLIC_JUPITER_API_KEY}`);
 
+  // Function to fetch price and quote from Jupiter API
   const fetchPrice = useCallback(
     debounce(async (fromToken, toToken, amount) => {
       if (!fromToken || !toToken || amount === undefined || amount === 0) {
@@ -33,8 +34,10 @@ const SwapCard = () => {
         setQuoteResponse(null);
         return;
       }
+
       setIsLoading(true);
       setError(null);
+
       try {
         let price = 0;
         if (fromToken === "SOL" && toToken === "USDC") {
@@ -42,11 +45,17 @@ const SwapCard = () => {
         } else if (fromToken === "USDC" && toToken === "SOL") {
           price = await fetchUsdcToSolPrice(fromToken, toToken);
         }
+
+        // Adjust for token decimals
+        const amountAdjusted = amount * (fromToken === "SOL" ? Math.pow(10, 9) : Math.pow(10, 6));
+
         setBuyAmount(price * amount);
-        
+
+        // Fetch quote from Jupiter API
         const quote = await fetch(
-          `https://quote-api.jup.ag/v6/quote?inputMint=${fromToken === "SOL" ? SOL_MINT : USDC_MINT}&outputMint=${toToken === "SOL" ? SOL_MINT : USDC_MINT}&amount=${amount * Math.pow(10, 9)}&slippage=0.5`
+          `https://quote-api.jup.ag/v6/quote?inputMint=${fromToken === "SOL" ? SOL_MINT : USDC_MINT}&outputMint=${toToken === "SOL" ? SOL_MINT : USDC_MINT}&amount=${amountAdjusted}&slippage=0.5`
         ).then(res => res.json());
+
         setQuoteResponse(quote);
       } catch (error) {
         console.error("Error fetching conversion:", error);
@@ -58,12 +67,14 @@ const SwapCard = () => {
     []
   );
 
+  // Effect to fetch price when sell token, buy token, or sell amount changes
   useEffect(() => {
-    if (sellToken && buyToken) {
+    if (sellToken && buyToken && sellAmount > 0) {
       fetchPrice(sellToken, buyToken, sellAmount);
     }
   }, [sellAmount, sellToken, buyToken, fetchPrice]);
 
+  // Function to handle token swap
   const handleSwap = () => {
     const tempAmount = sellAmount;
     const tempToken = sellToken;
@@ -77,6 +88,7 @@ const SwapCard = () => {
     setBuyTokenIcon(tempIcon);
   };
 
+  // Function to handle wallet connection and swap execution
   const handleWalletButtonClick = async () => {
     if (!wallet) {
       setVisible(true);
@@ -98,6 +110,7 @@ const SwapCard = () => {
     }
   };
 
+  // Function to sign and send the swap transaction
   async function signAndSendTransaction() {
     if (!connected || !signTransaction || !sendTransaction || !publicKey) {
       setError("Wallet is not connected or does not support signing transactions");
@@ -109,13 +122,19 @@ const SwapCard = () => {
 
     try {
       console.log("Preparing swap transaction request...");
+
+      // Prepare request payload
       const requestPayload = {
         quoteResponse,
         userPublicKey: publicKey.toString(),
-        wrapAndUnwrapSol: true,
+        // wrapAndUnwrapSol: true,
+        dynamicComputeUnitLimit: true,
+        prioritizationFeeLamports: 1000
       };
+
       console.log("Request payload:", requestPayload);
 
+      // Send swap request to Jupiter API
       const response = await fetch('https://quote-api.jup.ag/v6/swap', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -156,7 +175,7 @@ const SwapCard = () => {
       }, 'confirmed');
 
       console.log(`Transaction confirmed: https://solscan.io/tx/${txid}`);
-      // You might want to update UI here to show success message
+      // Optionally, update UI to show success message
     } catch (error) {
       console.error("Error in signAndSendTransaction:", error);
       setError("Failed to complete the swap. Please try again.");
@@ -190,13 +209,11 @@ const SwapCard = () => {
         onClick={handleSwap}
         className="rounded-full w-12 h-12 bg-[#0e281e] border-[#0e281e] border-2 flex items-center justify-center mx-auto my-4 focus:outline-none transform transition group absolute translate-y-[-50px]"
       >
-        <span className="transform -rotate-90 group-hover:rotate-90 transition-transform duration-300">
-          <Image src="swap-curve.svg" alt="swap" width={18} height={18} />
-        </span>
+        <span className="swap-icon"></span>
       </button>
 
       {/* Buy Section */}
-      <div className="flex flex-row md:flex-row justify-between items-start md:items-center bg-gradient-to-br from-[#55a27d] to-[#95d5a6] rounded-[15px] px-[46px] py-[36] h-auto md:h-[150px] w-full border border-gray-700 mx-auto mb-4">
+      <div className="flex flex-row md:flex-row justify-between items-start md:items-center bg-gradient-to-br from-[#95d5a6] to-[#d8f3dc] rounded-[15px] px-[46px] py-[36] h-auto md:h-[150px] w-full border border-gray-700 mx-auto mb-4">
         <div className="flex-1 mb-4 md:mb-0">
           <p className="text-[#1B4332] text-lg">Buy</p>
           <input
@@ -204,7 +221,7 @@ const SwapCard = () => {
             className="w-full bg-transparent text-2xl font-semibold outline-none mt-2 text-[#1B4332]"
             placeholder="0"
             value={buyAmount}
-            disabled
+            onChange={(e) => setBuyAmount(parseFloat(e.target.value) || 0)}
           />
         </div>
         <div className="flex items-center space-x-2 py-1 px-3 border rounded-full border-[#1B4332]">
@@ -213,19 +230,18 @@ const SwapCard = () => {
         </div>
       </div>
 
-      {/* Error Message */}
-      {error && (
-        <div className="text-red-500 mb-4">{error}</div>
-      )}
-
-      {/* Wallet Connect/Swap Button */}
+      {/* Connect Wallet / Swap Button */}
       <Button
+        className="bg-[#52b788] text-white w-full py-3 text-xl font-semibold mt-4 rounded-lg"
         onClick={handleWalletButtonClick}
         disabled={isLoading}
-        className="rounded-full w-full h-[50px] md:h-[60px] bg-[#95d5a6] hover:bg-[#74c69d] text-xl font-semibold focus:outline-none text-[#081c15] transform transition"
       >
-        {isLoading ? "Processing..." : connected ? "Swap" : "Connect Wallet"}
+        {connected ? "Swap" : "Connect Wallet"}
       </Button>
+
+      {/* Loading and Error Messages */}
+      {isLoading && <p className="text-white mt-2">Processing transaction...</p>}
+      {error && <p className="text-red-500 mt-2">{error}</p>}
     </div>
   );
 };
