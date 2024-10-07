@@ -129,7 +129,7 @@ const SwapCard = () => {
         userPublicKey: publicKey.toString(),
         // wrapAndUnwrapSol: true,
         dynamicComputeUnitLimit: true,
-        prioritizationFeeLamports: 1000
+        prioritizationFeeLamports: 100000
       };
 
       console.log("Request payload:", requestPayload);
@@ -191,7 +191,7 @@ const SwapCard = () => {
         <div className="flex-1 mb-4 md:mb-0">
           <p className="text-[#1B4332] text-lg">Sell</p>
           <input
-            type="text"
+            type="number"
             className="w-full bg-transparent text-2xl font-semibold outline-none mt-2 text-[#1B4332]"
             placeholder="0"
             value={sellAmount}
@@ -207,9 +207,13 @@ const SwapCard = () => {
       {/* Swap Button */}
       <button
         onClick={handleSwap}
-        className="rounded-full w-12 h-12 bg-[#0e281e] border-[#0e281e] border-2 flex items-center justify-center mx-auto my-4 focus:outline-none transform transition group absolute translate-y-[-50px]"
+        className="rounded-full w-12 h-12  bg-[#0e281e] border-[#0e281e] border-2 flex items-center justify-center mx-auto my-4 focus:outline-none transform transition  group absolute translate-y-[-50px]"
       >
-        <span className="swap-icon"></span>
+        <span className="transform -rotate-90 group-hover:rotate-90 transition-transform duration-300">
+        <Image src="swap-curve.svg" alt="swap" width={18} height={18} /> {/* Solana Icon */}
+        
+
+        </span>
       </button>
 
       {/* Buy Section */}
@@ -231,17 +235,20 @@ const SwapCard = () => {
       </div>
 
       {/* Connect Wallet / Swap Button */}
-      <Button
+      {/* <Button
         className="bg-[#52b788] text-white w-full py-3 text-xl font-semibold mt-4 rounded-lg"
         onClick={handleWalletButtonClick}
         disabled={isLoading}
       >
         {connected ? "Swap" : "Connect Wallet"}
+      </Button> */}
+      <Button
+        className="w-full h-[60px] mt-6 mx-auto bg-[#d8f3dc] text-[#081c15] text-xl font-medium rounded-xl hover:bg-transparent hover:text-[#d8f3dc] hover:border hover:border-[#d8f3dc] transition-colors duration-300"
+        onClick={handleWalletButtonClick}
+      >
+        {connected ? "Swap" : "Connect Wallet"}
       </Button>
 
-      {/* Loading and Error Messages */}
-      {isLoading && <p className="text-white mt-2">Processing transaction...</p>}
-      {error && <p className="text-red-500 mt-2">{error}</p>}
     </div>
   );
 };
