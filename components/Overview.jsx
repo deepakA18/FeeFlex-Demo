@@ -8,8 +8,8 @@ import { Cross2Icon } from '@radix-ui/react-icons';
 
 
 const items = [
-  { id: 1, title: "How it works", subtitle: "Subtitle 1", width: "w-2/5", height: "h-55" },
-  { id: 2, title: "Title 2", subtitle: "Subtitle 2", width: "w-1/4", height: "h-80" },
+  { id: 1, title: "What is FeeFlex?", subtitle: "FeeFlex is a token swap where you can swap tokens without native gas fee balance.", width: "w-2/5", height: "h-55" },
+  { id: 2, title: "Why FeeFlex?", subtitle: "Not everyone holds the native tokens and faces problem to pay gas, they either will have to onramp or ask their friend for funds.", width: "w-1/4", height: "h-80" },
   { id: 3, title: "Title 3", subtitle: "Subtitle 3", width: "w-1/3", height: "h-64" },
   { id: 4, title: "Title 4", subtitle: "Subtitle 4", width: "", height: "h-72" }
 ];
@@ -34,7 +34,7 @@ const Overview = () => {
             whileTap={{ scale: 0.95 }}
           >
             <motion.h1 className='font-unbounded text-2xl '>{item.title}</motion.h1>
-            <motion.h5 className='font-unbounded text-xl'>{item.subtitle}</motion.h5>
+            <motion.p className='font-unbounded text-xl'>{item.subtitle}</motion.p>
           </motion.div>
         ))}
       </div>
